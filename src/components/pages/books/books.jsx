@@ -11,6 +11,7 @@ import { fetchBooks, hideAlert, sortDescending } from '../../../redux/actions/ac
 import { ShowWindowDimensions } from '../../show-window-dimensions';
 import { ErrorAlert } from '../../error-alert';
 import { NoBooks } from '../../no-books';
+import { Login } from '../../login';
 
 const BooksContainer = (props) => {
   useEffect(() => {
@@ -60,6 +61,7 @@ const BooksContainer = (props) => {
     <ErrorAlert text={props.alert} />
   ) : (
     <div className='app-wrapper__content'>
+      <Login />
       <div className={style.books}>
         <Search sortBooks={searchFilterBooks && searchFilterBooks} changeButtonMode={changeButtonMode} />
         {!props.booksSearchValue.length && searchFilterBooks && !searchFilterBooks.length && (

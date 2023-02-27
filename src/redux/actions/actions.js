@@ -4,6 +4,7 @@ import {
   CHANGE_ACTIVE_BOOK_TITLE,
   CHANGE_ACTIVE_CATEGORY,
   CHANGE_SORT_ICON,
+  FETCH_AUTH,
   FETCH_BOOK,
   FETCH_BOOKS,
   FETCH_CATEGORIES,
@@ -124,6 +125,21 @@ export function fetchCategories() {
       dispatch(showLoader());
       return await axios('https://strapi.cleverland.by/api/categories').then(function (response) {
         dispatch({ type: FETCH_CATEGORIES, payload: response.data });
+        dispatch(hideLoader());
+      });
+    } catch (error) {
+      dispatch(hideLoader());
+      dispatch(showAlert('Что-то пошло не так. Обновите страницу через некоторое время.'));
+    }
+  };
+}
+export function fetchAuth(data) {
+  /* eslint-disable */
+  return async function (dispatch) {
+    try {
+      dispatch(showLoader());
+      return await axios.post('https://strapi.cleverland.by/api/auth/local', data).then(function (response) {
+        dispatch({ type: FETCH_AUTH, payload: response.data });
         dispatch(hideLoader());
       });
     } catch (error) {
